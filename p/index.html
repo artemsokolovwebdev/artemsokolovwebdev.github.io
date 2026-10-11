@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Front-End & Cross-Media Design</title>
+    <style>
+        /* CSS-VARIABLEN FÜR LIGHT & DARK THEME */
+        html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 90px;
+        }
+        :root {
+            --bg-color: #f8f9fa;
+            --text-color: #212529;
+            --card-bg: #ffffff;
+            --accent-color: #0d6efd;
+            --border-color: #dee2e6;
+            --secondary-text: #6c757d;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #f8f9fa;
+            --card-bg: #1e1e1e;
+            --accent-color: #0d6efd;
+            --border-color: #333333;
+            --secondary-text: #adb5bd;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* NAVIGATION */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 0.3rem 0.6rem;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 1.5rem;
+        }
+
+        /* SEKTIONEN */
+        section {
+            padding: 5rem 2rem 3rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--secondary-text);
+            max-width: 600px;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .btn-outline {
+            background: none;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            margin-left: 0.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+
+        /* PROJEKT-GRID */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            background-color: #ccc;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text {
+            color: var(--secondary-text);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+        }
+
+        .card-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .card-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* TECH STACK */
+        .skills-list {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .skill-item {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 0.8rem 1.2rem;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+        }
+
+        /* MOBIL-RESPONSIVITÄT */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            nav a {
+                margin: 0 0.5rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Artem Sokolov</div>
+        <nav>
+            <a href="#about">Über mich</a>
+            <a href="#projects">Projekte</a>
+            <a href="#skills">Tech-Stack</a>
+            <a href="#contact">Kontakt</a>
+            <button class="theme-toggle" id="themeToggle">🌙 / ☀️</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero">
+            <h1>Hallo, ich bin Artem 👋</h1>
+            <p>Auszubildender im Bereich Cross-Media Design an der SRH, mit Fokus auf Front-End-Webentwicklung und interaktive Benutzeroberflächen.</p>
+                <a href="#projects" class="btn">Projekte ansehen</a>
+                
+            </div>
+        </section>
+
+        <!-- ÜBER MICH -->
+        <section id="about">
+            <h2>Über mich</h2>
+            <p>Ich verbinde visuelles Design (UI/UX, Cross-Media) mit praktischer Front-End-Entwicklung in HTML, CSS und Vanilla JavaScript. Mein Ziel ist es, sauberen, optimierten Code mit durchdachten Benutzeroberflächen zu kombinieren.</p>
+        </section>
+
+        <!-- PROJEKTE -->
+        <section id="projects">
+            <h2>Projekte</h2>
+            <div class="projects-grid">
+
+                <!-- Projekt 1 (Game Promo Site) -->
+                <div class="card">
+                    <img src="../Desktop/Screenshot 2026-10-11 125517.png" alt="Promo-Website für ein Spiel" class="card-img">
+                    <div class="card-body">
+                        <div class="card-title">Promo-Website für ein Spiel</div>
+                        <div class="card-text">Interdisziplinäres Gruppenprojekt an der Fachschule. Verantwortlich für das responsive Design, eine interaktive Lightbox-Galerie und ein mobiles Burger-Menü.</div>
+                        <div class="tags">
+                            <span class="tag">HTML5</span>
+                            <span class="tag">CSS3</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://github.com/artemsokolovwebdev/From-Duck-Till-Dawn-Web-" target="_blank">Quellcode</a>
+                            <a href="https://artemsokolovwebdev.github.io/From-Duck-Till-Dawn-Web-/" target="_blank">Live-Demo →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projekt 2 (To-Do List App) -->
+                <div class="card">
+                    <img src="../Desktop/TO-DO.png" alt="To-Do-Liste Web-App" class="card-img">
+                    <div class="card-body">
+                        <div class="card-title">To-Do-Liste Web-App</div>
+                        <div class="card-text">Interaktive Aufgabenverwaltung zur Demonstration von DOM-Manipulationskenntnissen und der Speicherung von Daten im LocalStorage.</div>
+                        <div class="tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">DOM API</span>
+                            <span class="tag">LocalStorage</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://github.com/artemsokolovwebdev/TO-DO-LIST" target="_blank">Quellcode</a>
+                            <a href="https://artemsokolovwebdev.github.io/TO-DO-LIST/" target="_blank">Live-Demo →</a>
+                        </div>
+                    </div>
+                </div>
+
+               <!-- Projekt 3 (Taschenrechner) -->
+                <div class="card">
+                    <img src="../Desktop/TaschenRechner.png" alt="Taschenrechner Web-App" class="card-img">
+                    <div class="card-body">
+                        <div class="card-title">Interaktiver Taschenrechner</div>
+                        <div class="card-text">Web-Taschenrechner zur Umsetzung grundlegender mathematischer Logik und Event-Handling in Vanilla JavaScript.</div>
+                        <div class="tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">CSS Grid</span>
+                            <span class="tag">HTML5</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://github.com/artemsokolovwebdev/javascript-calculator" target="_blank">Quellcode</a>
+                            <a href="https://artemsokolovwebdev.github.io/javascript-calculator/" target="_blank">Live-Demo →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projekt 4 (Media & Design) -->
+                <div class="card" style="margin-top: 20px;">
+                    <img src="../Desktop/Web_DUCK_TILL_DA/Grafik/Hintergrund_Hauptmenü.png" alt="Promo-Website für ein Spiel" class="card-img">                    
+                        <div class="card-title">Game-Trailer & Grafikdesign</div>
+                        <div class="card-text">Erstellung eines Videotrailers und visueller Assets im Rahmen des Cross-Media-Design-Studiums mit Adobe Premiere Pro und Illustrator.</div>
+                        <div class="tags">
+                            <span class="tag">Cross-Media</span>
+                            <span class="tag">Premiere Pro</span>
+                            <span class="tag">Illustrator</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://artemsokolovwebdev.github.io/From-Duck-Till-Dawn-Web-/" target="_blank">Projekt ansehen →</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TECH-STACK -->
+        <section id="skills">
+            <h2>Tech-Stack & Tools</h2>
+            <div class="skills-list">
+                <div class="skill-item">HTML5 / CSS3</div>
+                <div class="skill-item">Vanilla JavaScript (ES6+)</div>
+                <div class="skill-item">Git / GitHub</div>
+                <div class="skill-item">Figma (UI/UX)</div>
+                <div class="skill-item">Adobe CC (Premiere Pro, Illustrator)</div>
+            </div>
+        </section>
+
+        <!-- KONTAKT -->
+        <section id="contact">
+            <h2>Kontakt</h2>
+            <p>Offen für Pflichtpraktika und Praktikumsstellen im Bereich Front-End-Entwicklung in der Metropolregion Rhein-Neckar und Umgebung (Frankfurt, Mannheim, Heidelberg, Karlsruhe, Stuttgart).</p>
+            <br>
+            <p><strong>E-Mail:</strong> <a href="mailto:Artem.Sokolov.web@gmail.com">Artem.Sokolov.web@gmail.com</a></p>
+            <p><strong>GitHub:</strong> <a href="https://github.com/artemsokolovwebdev?tab=repositories" target="_blank">github.com/artemsokolovwebdev</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Artem Sokolov. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script>
+        // Theme Toggle (Dark / Light)
+        const toggleBtn = document.getElementById('themeToggle');
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+        });
+    </script>
+</body>
+</html>
